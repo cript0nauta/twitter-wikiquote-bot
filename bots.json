@@ -1,0 +1,19 @@
+{
+    "bots" : [
+        {
+            "name": "example",
+            "consumer_key": "xxx",
+            "consumer_secret": "yyy",
+            "access_token": "zzz",
+            "access_token_secret": "123",
+            "intervalo" : 60,
+            "paginas": [
+                "Andrés Calamaro",
+                "Charly García",
+                "Fito Páez",
+                "Bob Marley"
+                ],
+            "disabled": true 
+        }
+    ]
+}

@@ -15,9 +15,11 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def tuitear(mensaje):
-	if len(mensaje)>2:
-		print "Twitteando: «"+str(mensaje)+"»"
-		api.update_status(mensaje)
+        try:
+            if len(mensaje)>2:
+                api.update_status(mensaje)
+        except tweepy.TweepError as e:
+            print 'Error tuiteando:', e
 
 def validaLongitud(mensaje):
 	if len(mensaje) > longitudM:
