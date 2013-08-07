@@ -7,19 +7,15 @@ import tweepy
 
 longitudM=138
 
-consumer_key, consumer_secret, access_token, \
-    access_token_secret = open('data').read().strip().split(';')
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
-
-def tuitear(mensaje):
-        try:
-            if len(mensaje)>2:
-                api.update_status(mensaje)
-        except tweepy.TweepError as e:
-            print 'Error tuiteando:', e
+def tuitear(mensaje, consumer_key, consumer_secret, access_token, access_token_secret):
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
+    try:
+        if len(mensaje)>2:
+            api.update_status(mensaje)
+    except tweepy.TweepError as e:
+        print 'Error tuiteando:', e
 
 def validaLongitud(mensaje):
 	if len(mensaje) > longitudM:
@@ -45,28 +41,4 @@ def mostrardialogo(mensaje):
 def sanearMensaje(mensaje):
 		return mensaje[0:longitudM]
 
-def main(argumento):
-	if len(argumento) > 1:
-		mensaje=argumento[1]
-		#print "Con mensaje:"+str(mensaje)
-	else:
-		#print "Sin mensaje"
-		mensaje = mostrardialogo("")
-		#print "Con mensaje:"+str(mensaje)
-	#Si no hay indicacion horaria el objeto mensajePartes.group(1) es None
-	mensajePartes=re.match("(\d?\d:\d?\d)? ?(.*)", mensaje)
-	print mensajePartes.group(2)	
-	while validaLongitud(mensajePartes.group(2))!=True:
-		if mensajePartes.group(1)!=None:
-			h=str(mensajePartes.group(1))+" "
-		else:
-			h=""
-		mensaje=mostrardialogo(h+""+sanearMensaje(mensajePartes.group(2)))
-		mensajePartes=re.match("(\d?\d:\d?\d)? ?(.*)", mensaje)
-	discriminar(mensajePartes)
-if __name__ == '__main__':
-	try:
-		access_key
-	except NameError:
-		access_key = None
-	main(sys.argv)
+

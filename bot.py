@@ -35,7 +35,8 @@ def start_bot(bot):
                     #print 'tweet largo'
                 continue
             print "%s: %s" % (bot['name'], tweet.decode('utf8'))
-            tuitear.tuitear(tweet)
+            tuitear.tuitear(tweet, bot['consumer_key'], bot['consumer_secret'],
+                bot['access_token'], bot['access_token_secret'])
             tiempo = 0
         tiempo += INTERVALO
         time.sleep(INTERVALO)
